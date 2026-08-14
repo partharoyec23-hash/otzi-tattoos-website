@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTZI Tattoos & Piercings | Guwahati's Premier Custom Studio</title>
+<meta name="description" content="Guwahati's premier custom tattoo and precision piercing studio. 5.0 rating, 1300+ reviews. 100% sterile, implant-grade jewelry, custom design.">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          obsidian: '#0C0C0C',
+          panel: '#171717',
+          panel2: '#1F1F1D',
+          gold: '#D4AF37',
+          amber: '#F59E0B',
+          bone: '#E9E4D8',
+          smoke: '#8C897F',
+          line: '#2A2A26',
+        },
+        fontFamily: {
+          display: ['Cinzel', 'serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #0C0C0C;
+    font-family: 'Inter', sans-serif;
+    color: #E9E4D8;
+  }
+
+  /* film grain texture overlay */
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 40;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .gold-line { background: linear-gradient(90deg, transparent, #D4AF37, transparent); }
+
+  .stitch-divider {
+    border: none;
+    border-top: 1px dashed #3A372F;
+    position: relative;
+  }
+  .stitch-divider::after {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: -11px;
+    transform: translateX(-50%);
+    background: #0C0C0C;
+    color: #D4AF37;
+    padding: 0 14px;
+    font-size: 14px;
+  }
+
+  .tab-btn.active {
+    color: #0C0C0C;
+    background-color: #D4AF37;
+  }
+  .tab-btn.active .tab-count {
+    color: #0C0C0C;
+  }
+
+  .filter-btn.active {
+    background-color: #D4AF37;
+    color: #0C0C0C;
+    border-color: #D4AF37;
+  }
+
+  .card-hover {
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px -20px rgba(212,175,55,0.25);
+    border-color: rgba(212,175,55,0.5);
+  }
+
+  .stamp {
+    animation: spin-slow 22s linear infinite;
+    transform-origin: center;
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .gallery-img {
+    filter: grayscale(35%) contrast(1.05) brightness(0.92);
+    transition: filter .5s ease, transform .6s ease;
+  }
+  .gallery-item:hover .gallery-img {
+    filter: grayscale(0%) contrast(1.1) brightness(1);
+    transform: scale(1.06);
+  }
+
+  input::placeholder, textarea::placeholder { color: #6b675c; }
+  input, select, textarea {
+    background-color: #171717;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0C0C0C; }
+  ::-webkit-scrollbar-thumb { background: #3A372F; border-radius: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stamp { animation: none; }
+    .fade-up { transition: none; opacity: 1; transform: none; }
+  }
+
+  #modal-overlay { backdrop-filter: blur(6px); }
+</style>
+</head>
+
+<body class="bg-obsidian text-bone antialiased overflow-x-hidden">
+<div class="grain"></div>
+
+<!-- ================= NAV ================= -->
+<header id="top" class="fixed top-0 inset-x-0 z-30 border-b border-line bg-obsidian/80 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 group">
+      <img src="assets/images/logo/otzi-logo.png" alt="OTZI Tattoos & Piercings logo" class="w-11 h-11 rounded-full ring-1 ring-gold/40">
+      <span class="font-display text-lg md:text-xl tracking-[0.12em] text-bone">OTZI <span class="text-gold">TATTOOS</span> &amp; PIERCINGS</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 font-body text-sm tracking-wide text-smoke">
+      <a href="#services" class="hover:text-gold transition-colors">Services</a>
+      <a href="#gallery" class="hover:text-gold transition-colors">Work &amp; Gallery</a>
+      <a href="#reels" class="hover:text-gold transition-colors">Reels</a>
+      <a href="#why" class="hover:text-gold transition-colors">Why OTZI</a>
+      <a href="#reviews" class="hover:text-gold transition-colors">Reviews</a>
+      <a href="#location" class="hover:text-gold transition-colors">Location</a>
+    </nav>
+
+    <a href="#book" class="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-amber text-obsidian font-semibold text-sm tracking-wide px-5 py-2.5 rounded-sm transition-colors">
+      <i class="fa-solid fa-calendar-check w-4 h-4"></i> Book Appointment
+    </a>
+
+    <button id="menu-toggle" class="lg:hidden text-bone">
+      <i class="fa-solid fa-bars w-7 h-7"></i>
+    </button>
+  </div>
+
+  <!-- mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-line bg-obsidian px-5 py-6 flex flex-col gap-5 font-body text-smoke">
+    <a href="#services" class="hover:text-gold">Services</a>
+    <a href="#gallery" class="hover:text-gold">Work &amp; Gallery</a>
+    <a href="#reels" class="hover:text-gold">Reels</a>
+    <a href="#why" class="hover:text-gold">Why OTZI</a>
+    <a href="#reviews" class="hover:text-gold">Reviews</a>
+    <a href="#location" class="hover:text-gold">Location</a>
+    <a href="#book" class="inline-flex justify-center items-center gap-2 bg-gold text-obsidian font-semibold px-5 py-3 rounded-sm mt-2">
+      <i class="fa-solid fa-calendar-check w-4 h-4"></i> Book Appointment
+    </a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative pt-40 pb-24 md:pt-52 md:pb-32 px-5 md:px-8 overflow-hidden">
+  <div class="absolute inset-0 -z-10">
+    <img src="assets/images/hero/hero-01.webp" class="w-full h-full object-cover object-top opacity-[0.18]" alt="OTZI Tattoos & Piercings studio interior">
+    <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/85 to-obsidian"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-7 fade-up">
+      <div class="inline-flex items-center gap-2 border border-gold/40 text-gold text-xs tracking-[0.15em] px-4 py-2 rounded-full mb-7 font-body">
+        <i class="fa-solid fa-star w-3.5 h-3.5"></i> 5.0 RATING &middot; 1,300+ VERIFIED GOOGLE REVIEWS
+      </div>
+
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.12] text-bone">
+        Guwahati's Premier <span class="text-gold">Custom Tattoo</span> &amp; Precision Piercing Studio
+      </h1>
+
+      <p class="mt-6 text-smoke text-base md:text-lg max-w-xl font-light leading-relaxed">
+        Where precision meets artistry — in a 100% sterile and welcoming environment.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4">
+        <a href="#gallery" class="inline-flex justify-center items-center gap-2 bg-gold hover:bg-amber text-obsidian font-semibold px-7 py-3.5 rounded-sm transition-colors">
+          Explore Our Work <i class="fa-solid fa-arrow-up-right-from-square w-4 h-4"></i>
+        </a>
+        <a href="#book" class="inline-flex justify-center items-center gap-2 border border-line hover:border-gold text-bone px-7 py-3.5 rounded-sm transition-colors">
+          Book Free Consultation
+        </a>
+      </div>
+
+      <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 md:gap-8 max-w-2xl">
+        <div class="border-l border-line pl-4">
+          <p class="font-display text-2xl md:text-3xl text-gold" data-count="1300" data-suffix="+">0</p>
+          <p class="text-xs text-smoke mt-1 tracking-wide">5-Star Reviews</p>
+        </div>
+        <div class="border-l border-line pl-4">
+          <p class="font-display text-2xl md:text-3xl text-gold" data-count="100" data-suffix="%">0</p>
+          <p class="text-xs text-smoke mt-1 tracking-wide">Sterile &amp; Hygienic</p>
+        </div>
+        <div class="border-l border-line pl-4">
+          <p class="font-display text-xl md:text-2xl text-gold leading-tight">Custom</p>
+          <p class="text-xs text-smoke mt-1 tracking-wide">Tattoo Design</p>
+        </div>
+        <div class="border-l border-line pl-4">
+          <p class="font-display text-xl md:text-2xl text-gold leading-tight">Implant-Grade</p>
+          <p class="text-xs text-smoke mt-1 tracking-wide">Piercings</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- signature stamp element -->
+    <div class="lg:col-span-5 flex justify-center fade-up">
+      <div class="relative w-64 h-64 md:w-80 md:h-80">
+        <svg class="stamp absolute inset-0 w-full h-full" viewBox="0 0 200 200">
+          <defs>
+            <path id="circlePath" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"/>
+          </defs>
+          <circle cx="100" cy="100" r="96" fill="none" stroke="#2A2A26" stroke-width="1"/>
+          <circle cx="100" cy="100" r="78" fill="none" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2 5"/>
+          <text font-family="Cinzel" font-size="11.5" letter-spacing="3.5" fill="#D4AF37">
+            <textPath href="#circlePath" startOffset="0%">EST. GUWAHATI &middot; ARTISTRY &amp; PRECISION &middot; EST. GUWAHATI &middot; </textPath>
+          </text>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
+          <img src="assets/images/logo/otzi-logo.png" alt="OTZI Tattoos & Piercings" class="w-24 h-24 md:w-28 md:h-28 rounded-full mb-3">
+          <p class="text-[10px] text-smoke tracking-[0.2em] mt-1">SINCE INK &amp; STEEL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="stitch-divider max-w-7xl mx-auto">
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="py-24 px-5 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-14 fade-up">
+      <p class="text-gold text-xs tracking-[0.25em] mb-3">SPECIALTIES</p>
+      <h2 class="font-display text-3xl md:text-4xl text-bone">Services Built On Craft &amp; Sterility</h2>
+      <p class="text-smoke mt-4 font-light">Every needle, every design, every session — held to the same standard of precision.</p>
+    </div>
+
+    <div class="flex justify-center gap-3 mb-12 fade-up">
+      <button class="tab-btn active font-body text-sm tracking-wide px-6 py-3 rounded-sm border border-line transition-colors" data-tab="tattoo">
+        Tattoo Services <span class="tab-count text-gold ml-1">(07)</span>
+      </button>
+      <button class="tab-btn font-body text-sm tracking-wide px-6 py-3 rounded-sm border border-line transition-colors text-smoke" data-tab="piercing">
+        Piercing Services <span class="tab-count text-gold ml-1">(11)</span>
+      </button>
+    </div>
+
+    <div id="tab-tattoo" class="tab-panel grid sm:grid-cols-2 lg:grid-cols-4 gap-5 fade-up">
+      <!-- generated by JS -->
+    </div>
+    <div id="tab-piercing" class="tab-panel hidden grid sm:grid-cols-2 lg:grid-cols-4 gap-5 fade-up">
+      <!-- generated by JS -->
+    </div>
+
+    <div class="mt-10 inline-flex items-center gap-2 border border-gold/30 rounded-sm px-5 py-3 text-xs md:text-sm text-gold tracking-wide fade-up">
+      <i class="fa-solid fa-shield-halved w-4 h-4 shrink-0"></i>
+      Using Implant-Grade Titanium Jewelry &amp; Single-Use Sterile Needles
+    </div>
+  </div>
+</section>
+
+<hr class="stitch-divider max-w-7xl mx-auto">
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery" class="py-24 px-5 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12 fade-up">
+      <p class="text-gold text-xs tracking-[0.25em] mb-3">PORTFOLIO</p>
+      <h2 class="font-display text-3xl md:text-4xl text-bone">Work &amp; Gallery</h2>
+      <p class="text-smoke mt-4 font-light">A glimpse into recent sessions — from bold sleeves to precision piercings.</p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 mb-10 fade-up">
+      <button class="filter-btn active font-body text-xs md:text-sm tracking-wide px-5 py-2.5 rounded-full border border-line transition-colors" data-filter="all">All Works</button>
+      <button class="filter-btn font-body text-xs md:text-sm tracking-wide px-5 py-2.5 rounded-full border border-line transition-colors text-smoke" data-filter="tattoo">Tattoos</button>
+      <button class="filter-btn font-body text-xs md:text-sm tracking-wide px-5 py-2.5 rounded-full border border-line transition-colors text-smoke" data-filter="piercing">Precision Piercings</button>
+      <button class="filter-btn font-body text-xs md:text-sm tracking-wide px-5 py-2.5 rounded-full border border-line transition-colors text-smoke" data-filter="studio">Studio</button>
+    </div>
+
+    <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 fade-up">
+      <!-- generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- gallery modal -->
+<div id="modal-overlay" class="hidden fixed inset-0 z-50 bg-black/80 items-center justify-center px-5">
+  <div class="relative max-w-3xl w-full">
+    <button id="modal-close" class="absolute -top-11 right-0 text-bone hover:text-gold"><i class="fa-solid fa-xmark w-7 h-7"></i></button>
+    <img id="modal-img" src="" alt="" class="w-full max-h-[75vh] object-cover rounded-sm border border-line">
+    <p id="modal-caption" class="text-center text-smoke mt-4 text-sm tracking-wide"></p>
+  </div>
+</div>
+
+<!-- ================= VIDEOS ================= -->
+<section id="reels" class="py-24 px-5 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-14 fade-up">
+      <p class="text-gold text-xs tracking-[0.25em] mb-3">SEE US IN ACTION</p>
+      <h2 class="font-display text-3xl md:text-4xl text-bone">Studio Reels</h2>
+      <p class="text-smoke mt-4 font-light">A closer look at the studio, the process, and the artists behind the needle.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+      <div class="fade-up card-hover bg-panel border border-line rounded-md overflow-hidden">
+        <div class="relative aspect-[9/16] bg-black">
+          <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="assets/images/interior/interior-03.jpg">
+            <source src="assets/videos/promo-01.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="text-center text-xs text-smoke tracking-wide py-3">Studio Promo</p>
+      </div>
+      <div class="fade-up card-hover bg-panel border border-line rounded-md overflow-hidden">
+        <div class="relative aspect-[9/16] bg-black">
+          <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="assets/images/tattoos/tattoo-01.webp">
+            <source src="assets/videos/reel-01.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="text-center text-xs text-smoke tracking-wide py-3">Process Reel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="stitch-divider max-w-7xl mx-auto">
+
+<!-- ================= WHY OTZI ================= -->
+<section id="why" class="py-24 px-5 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-14 fade-up">
+      <p class="text-gold text-xs tracking-[0.25em] mb-3">SAFETY &amp; HYGIENE</p>
+      <h2 class="font-display text-3xl md:text-4xl text-bone">Why Choose OTZI</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7">
+        <i class="fa-solid fa-pump-soap w-8 h-8 text-gold mb-5"></i>
+        <h3 class="font-display text-lg text-bone mb-2">Medical-Grade Sterilization</h3>
+        <p class="text-smoke text-sm font-light leading-relaxed">Autoclave sterilization and single-use needles for every single client, every single time.</p>
+      </div>
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7">
+        <i class="fa-solid fa-hand-holding-heart w-8 h-8 text-gold mb-5"></i>
+        <h3 class="font-display text-lg text-bone mb-2">Patient &amp; Friendly Artists</h3>
+        <p class="text-smoke text-sm font-light leading-relaxed">Perfect for first-timers — our artists walk you through design, placement and pain-management calmly.</p>
+      </div>
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7">
+        <i class="fa-solid fa-hand-holding-dollar w-8 h-8 text-gold mb-5"></i>
+        <h3 class="font-display text-lg text-bone mb-2">Reasonable &amp; Fair Pricing</h3>
+        <p class="text-smoke text-sm font-light leading-relaxed">Transparent quotes before any needle touches skin — no hidden costs, no surprises.</p>
+      </div>
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7">
+        <i class="fa-solid fa-clipboard-check w-8 h-8 text-gold mb-5"></i>
+        <h3 class="font-display text-lg text-bone mb-2">Complete Aftercare Support</h3>
+        <p class="text-smoke text-sm font-light leading-relaxed">Detailed aftercare guidance and ongoing support until your tattoo or piercing has fully healed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="stitch-divider max-w-7xl mx-auto">
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews" class="py-24 px-5 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-14 fade-up">
+      <p class="text-gold text-xs tracking-[0.25em] mb-3">SOCIAL PROOF</p>
+      <h2 class="font-display text-3xl md:text-4xl text-bone">What Guwahati Says</h2>
+      <div class="flex justify-center gap-1 mt-4">
+        <i class="fa-solid fa-star w-5 h-5 text-gold"></i>
+        <i class="fa-solid fa-star w-5 h-5 text-gold"></i>
+        <i class="fa-solid fa-star w-5 h-5 text-gold"></i>
+        <i class="fa-solid fa-star w-5 h-5 text-gold"></i>
+        <i class="fa-solid fa-star w-5 h-5 text-gold"></i>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7 flex flex-col">
+        <div class="flex gap-1 mb-4">
+          <i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i>
+        </div>
+        <p class="text-bone/90 text-sm font-light leading-relaxed flex-1">"I had my ear piercing done here... The staff was friendly, professional, made me feel comfortable throughout the whole process with proper hygiene!"</p>
+        <p class="text-gold text-sm mt-5 font-display">Partha P.</p>
+      </div>
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7 flex flex-col">
+        <div class="flex gap-1 mb-4">
+          <i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i>
+        </div>
+        <p class="text-bone/90 text-sm font-light leading-relaxed flex-1">"Got my lobe, upper lobe and helix done in one session... clear aftercare guidance and proper hygiene maintained."</p>
+        <p class="text-gold text-sm mt-5 font-display">Leeza S.</p>
+      </div>
+      <div class="fade-up card-hover bg-panel border border-line rounded-sm p-7 flex flex-col">
+        <div class="flex gap-1 mb-4">
+          <i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i><i class="fa-solid fa-star w-4 h-4 text-gold"></i>
+        </div>
+        <p class="text-bone/90 text-sm font-light leading-relaxed flex-1">"Nervous getting my first tattoo, but the artists helped me finalize the design and position. Very hygienic!"</p>
+        <p class="text-gold text-sm mt-5 font-display">Yash P.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="stitch-divider max-w-7xl mx-auto">
+
+<!-- ================= APPOINTMENT FORM ================= -->
+<section id="book" class="py-24 px-5 md:px-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-12 fade-up">
+      <p class="text-gold text-xs tracking-[0.25em] mb-3">GET STARTED</p>
+      <h2 class="font-display text-3xl md:text-4xl text-bone">Request Your Appointment</h2>
+      <p class="text-smoke mt-4 font-light">Tell us your idea — we'll confirm your slot within 24 hours.</p>
+    </div>
+
+    <form id="appointment-form" class="fade-up bg-panel border border-line rounded-sm p-7 md:p-10 grid sm:grid-cols-2 gap-5">
+      <div class="sm:col-span-1">
+        <label class="text-xs text-smoke tracking-wide">Full Name</label>
+        <input required type="text" placeholder="Your name" class="mt-2 w-full border border-line rounded-sm px-4 py-3 text-sm text-bone focus:outline-none focus:border-gold transition-colors">
+      </div>
+      <div class="sm:col-span-1">
+        <label class="text-xs text-smoke tracking-wide">Phone Number</label>
+        <input required type="tel" placeholder="+91 XXXXX XXXXX" class="mt-2 w-full border border-line rounded-sm px-4 py-3 text-sm text-bone focus:outline-none focus:border-gold transition-colors">
+      </div>
+      <div class="sm:col-span-1">
+        <label class="text-xs text-smoke tracking-wide">Service Choice</label>
+        <select class="mt-2 w-full border border-line rounded-sm px-4 py-3 text-sm text-bone focus:outline-none focus:border-gold transition-colors">
+          <option>Custom Tattoo</option>
+          <option>Ear Piercing</option>
+          <option>Body Piercing</option>
+          <option>Cover-Up</option>
+        </select>
+      </div>
+      <div class="sm:col-span-1">
+        <label class="text-xs text-smoke tracking-wide">Preferred Date / Time</label>
+        <input type="text" placeholder="e.g. 20 Aug, 4:00 PM" class="mt-2 w-full border border-line rounded-sm px-4 py-3 text-sm text-bone focus:outline-none focus:border-gold transition-colors">
+      </div>
+      <div class="sm:col-span-2">
+        <label class="text-xs text-smoke tracking-wide">Your Idea / Message</label>
+        <textarea rows="4" placeholder="Describe your tattoo idea or piercing preference..." class="mt-2 w-full border border-line rounded-sm px-4 py-3 text-sm text-bone focus:outline-none focus:border-gold transition-colors"></textarea>
+      </div>
+      <div class="sm:col-span-2">
+        <button type="submit" class="w-full inline-flex justify-center items-center gap-2 bg-gold hover:bg-amber text-obsidian font-semibold px-7 py-3.5 rounded-sm transition-colors">
+          <i class="fa-solid fa-paper-plane w-4 h-4"></i> Submit Request
+        </button>
+        <p id="form-success" class="hidden text-center text-gold text-sm mt-4">Thank you! Your request has been received — we'll call you shortly to confirm.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER / LOCATION ================= -->
+<footer id="location" class="border-t border-line pt-20 pb-10 px-5 md:px-8 bg-panel/40">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
+    <div class="fade-up">
+      <div class="flex items-center gap-3 mb-5">
+        <img src="assets/images/logo/otzi-logo.png" alt="OTZI Tattoos & Piercings logo" class="w-10 h-10 rounded-full ring-1 ring-gold/40">
+        <span class="font-display text-base tracking-[0.1em] text-bone">OTZI TATTOOS &amp; PIERCINGS</span>
+      </div>
+      <p class="text-smoke text-sm font-light leading-relaxed max-w-xs">Guwahati's premier custom tattoo &amp; precision piercing studio — artistry, hygiene, and craft in equal measure.</p>
+      <div class="flex gap-4 mt-6">
+        <a href="#" class="w-9 h-9 flex items-center justify-center border border-line rounded-full text-smoke hover:text-gold hover:border-gold transition-colors"><i class="fa-brands fa-instagram w-4 h-4"></i></a>
+        <a href="#" class="w-9 h-9 flex items-center justify-center border border-line rounded-full text-smoke hover:text-gold hover:border-gold transition-colors"><i class="fa-brands fa-facebook w-4 h-4"></i></a>
+        <a href="#" class="w-9 h-9 flex items-center justify-center border border-line rounded-full text-smoke hover:text-gold hover:border-gold transition-colors"><i class="fa-solid fa-phone w-4 h-4"></i></a>
+      </div>
+    </div>
+
+    <div class="fade-up">
+      <h4 class="font-display text-sm text-gold tracking-[0.15em] mb-5">LOCATION</h4>
+      <p class="text-smoke text-sm font-light leading-relaxed">House No. 264, 2nd Floor, Bylane 3,<br>Rajgarh Rd, Sarania Hills,<br>Guwahati, Assam 781003</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=House+No.+264+2nd+Floor+Bylane+3+Rajgarh+Rd+Sarania+Hills+Guwahati+Assam+781003" target="_blank" class="inline-flex items-center gap-2 mt-5 text-gold text-sm hover:text-amber transition-colors">
+        <i class="fa-solid fa-location-dot w-4 h-4"></i> Open in Google Maps
+      </a>
+    </div>
+
+    <div class="fade-up">
+      <h4 class="font-display text-sm text-gold tracking-[0.15em] mb-5">HOURS</h4>
+      <div class="flex justify-between text-sm text-smoke font-light max-w-xs border-b border-line pb-2 mb-2">
+        <span>Mon – Sat</span><span class="text-bone">10:00 AM – 9:00 PM</span>
+      </div>
+      <div class="flex justify-between text-sm text-smoke font-light max-w-xs">
+        <span>Sunday</span><span class="text-bone">11:00 AM – 4:00 PM</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto border-t border-line mt-14 pt-7 flex flex-col sm:flex-row justify-between items-center gap-3">
+    <p class="text-xs text-smoke">&copy; 2026 OTZI Tattoos &amp; Piercings, Guwahati. All rights reserved.</p>
+    <p class="text-xs text-smoke">Designed by Parthav Roy</p>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+  document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('hidden');
+  }));
+
+  // ---------- SERVICES DATA ----------
+  const tattooServices = [
+    { icon: 'fa-solid fa-user', name: 'Custom Sleeves' },
+    { icon: 'fa-solid fa-camera-retro', name: 'Realism' },
+    { icon: 'fa-solid fa-yin-yang', name: 'Traditional Asian Tattoos' },
+    { icon: 'fa-solid fa-rotate', name: 'Cover-ups & Reworkings' },
+    { icon: 'fa-solid fa-font', name: 'Lettering' },
+    { icon: 'fa-solid fa-draw-polygon', name: 'Mandala & Geometric' },
+    { icon: 'fa-solid fa-paintbrush', name: 'Touch-ups' },
+  ];
+  const piercingServices = [
+    { icon: 'fa-solid fa-circle-dot', name: 'Helix' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Ear Lobe' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Tragus & Anti-Tragus' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Nose' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Septum' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Navel' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Lip' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Smiley' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Tongue' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Vertical Labret' },
+    { icon: 'fa-solid fa-circle-dot', name: 'Cheek & Anchor' },
+  ];
+
+  function renderServices(containerId, list) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = list.map(s => `
+      <div class="card-hover bg-panel border border-line rounded-sm p-6 flex flex-col items-start gap-4">
+        <i class="${s.icon} w-6 h-6 text-gold"></i>
+        <p class="font-body text-sm text-bone tracking-wide">${s.name}</p>
+      </div>
+    `).join('');
+  }
+  renderServices('tab-tattoo', tattooServices);
+  renderServices('tab-piercing', piercingServices);
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.add('text-smoke'); });
+      btn.classList.add('active'); btn.classList.remove('text-smoke');
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+    });
+  });
+
+  // ---------- GALLERY ----------
+  const galleryItems = [
+    { cat: 'tattoo', src: 'assets/images/tattoos/tattoo-01.webp', caption: 'Realism tiger, forearm sleeve' },
+    { cat: 'piercing', src: 'assets/images/piercings/piercing-01.jpg', caption: 'Navel piercing' },
+    { cat: 'tattoo', src: 'assets/images/tattoos/tattoo-04.jpg', caption: 'Ganesha half-sleeve' },
+    { cat: 'studio', src: 'assets/images/interior/interior-03.jpg', caption: 'Private tattoo station' },
+    { cat: 'piercing', src: 'assets/images/piercings/piercing-03.jpg', caption: 'Curated ear set, helix & lobe' },
+    { cat: 'tattoo', src: 'assets/images/tattoos/tattoo-02.jpg', caption: 'Fine-line forearm piece' },
+    { cat: 'tattoo', src: 'assets/images/tattoos/tattoo-03.jpg', caption: 'Tribal phoenix, neck' },
+    { cat: 'piercing', src: 'assets/images/piercings/piercing-02.jpg', caption: 'Industrial ear piercing' },
+    { cat: 'studio', src: 'assets/images/interior/sterilization-01.jpg', caption: 'Reception & waiting area' },
+    { cat: 'piercing', src: 'assets/images/piercings/piercing-04.jpg', caption: 'Helix & lobe combo' },
+    { cat: 'studio', src: 'assets/images/interior/interior-01.jpg', caption: 'Workstations, ready for your session' },
+    { cat: 'studio', src: 'assets/images/hero/hero-02.webp', caption: 'Consultation desk' },
+  ];
+
+  function renderGallery(filter) {
+    const grid = document.getElementById('gallery-grid');
+    const items = filter === 'all' ? galleryItems : galleryItems.filter(g => g.cat === filter);
+    grid.innerHTML = items.map(g => `
+      <div class="gallery-item relative overflow-hidden rounded-sm border border-line cursor-pointer aspect-square" data-src="${g.src}" data-caption="${g.caption}">
+        <img src="${g.src}" class="gallery-img w-full h-full object-cover" alt="${g.caption}">
+        <div class="absolute inset-0 bg-gradient-to-t from-obsidian/70 via-transparent to-transparent flex items-end p-3">
+          <p class="text-xs text-bone tracking-wide">${g.caption}</p>
+        </div>
+      </div>
+    `).join('');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => openModal(item.dataset.src, item.dataset.caption));
+    });
+  }
+  renderGallery('all');
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.classList.add('text-smoke'); });
+      btn.classList.add('active'); btn.classList.remove('text-smoke');
+      renderGallery(btn.dataset.filter);
+    });
+  });
+
+  function openModal(src, caption) {
+    document.getElementById('modal-img').src = src;
+    document.getElementById('modal-caption').textContent = caption;
+    const overlay = document.getElementById('modal-overlay');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+  }
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target.id === 'modal-overlay') closeModal(); });
+  function closeModal() {
+    const overlay = document.getElementById('modal-overlay');
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+  }
+
+  // ---------- FORM ----------
+  document.getElementById('appointment-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('form-success').classList.remove('hidden');
+    e.target.reset();
+  });
+
+  // ---------- FADE-UP ON SCROLL ----------
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in-view');
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ---------- STAT COUNTERS ----------
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const counters = document.querySelectorAll('[data-count]');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countObserver.observe(c));
+</script>
+
+</body>
+</html>
